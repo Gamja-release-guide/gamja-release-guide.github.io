@@ -111,6 +111,20 @@ const testimonials = [
     line-height: 1.7;
     margin: 0;
     flex: 1;
+    position: relative;
+    padding-top: 20px;
+  }
+
+  .testimonial-quote::before {
+    content: '\201C';
+    position: absolute;
+    top: -4px;
+    left: 0;
+    font-size: 2.4rem;
+    font-family: 'DM Sans', Georgia, serif;
+    color: var(--accent);
+    opacity: 0.3;
+    line-height: 1;
   }
 
   .testimonial-author {
