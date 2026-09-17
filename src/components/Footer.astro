@@ -124,10 +124,28 @@ const year = new Date().getFullYear();
     font-size: 0.82rem;
     color: var(--text-faint);
     text-decoration: none;
+    position: relative;
+    display: inline-block;
+  }
+
+  .footer-col a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.2s ease;
   }
 
   .footer-col a:hover {
     color: var(--accent);
+    text-decoration: none;
+  }
+
+  .footer-col a:hover::after {
+    width: 100%;
   }
 
   .footer-bottom {
