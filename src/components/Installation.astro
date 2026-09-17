@@ -191,6 +191,11 @@ const configYml = `checks:
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+
+  .code-block:hover {
+    border-color: var(--accent);
   }
 
   .code-header {
