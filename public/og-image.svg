@@ -1,0 +1,95 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F1117"/>
+      <stop offset="100%" stop-color="#171B24"/>
+    </linearGradient>
+    <linearGradient id="termGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#1C1F2A"/>
+      <stop offset="100%" stop-color="#181B24"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <rect width="40" height="40" fill="none"/>
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2A2E3B" stroke-width="0.5" opacity="0.4"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Badge -->
+  <rect x="60" y="50" width="56" height="28" rx="6" fill="#2D5BE3"/>
+  <text x="88" y="69" font-family="JetBrains Mono, monospace" font-size="14" font-weight="500" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">RG</text>
+
+  <!-- Title -->
+  <text x="60" y="140" font-family="DM Sans, Noto Sans KR, sans-serif" font-size="48" font-weight="700" fill="#E2E4EA" letter-spacing="-0.5">Release Guard</text>
+
+  <!-- Subtitle -->
+  <text x="60" y="180" font-family="Noto Sans KR, sans-serif" font-size="20" fill="#9197A3">Every PR, automatically checked for what matters.</text>
+
+  <!-- Terminal mockup -->
+  <rect x="60" y="220" width="1080" height="340" rx="10" fill="url(#termGrad)" stroke="#2A2E3B" stroke-width="1"/>
+
+  <!-- Terminal dots -->
+  <circle cx="86" cy="244" r="6" fill="#F47067"/>
+  <circle cx="106" cy="244" r="6" fill="#D4A03A"/>
+  <circle cx="126" cy="244" r="6" fill="#3FB86A"/>
+
+  <!-- Terminal title bar text -->
+  <text x="600" y="248" font-family="JetBrains Mono, monospace" font-size="12" fill="#6B7280" text-anchor="middle">release-guard check results</text>
+
+  <!-- Divider line -->
+  <line x1="60" y1="264" x2="1140" y2="264" stroke="#2A2E3B" stroke-width="1"/>
+
+  <!-- Terminal content -->
+  <!-- Line 1: Header -->
+  <text x="84" y="296" font-family="JetBrains Mono, monospace" font-size="15" fill="#6B93F0">release-guard</text>
+  <text x="230" y="296" font-family="JetBrains Mono, monospace" font-size="15" fill="#6B7280">v1.0  --  PR #142  feat/add-oauth-flow</text>
+
+  <!-- Line 2: Separator -->
+  <text x="84" y="322" font-family="JetBrains Mono, monospace" font-size="15" fill="#2A2E3B">------------------------------------------------------------</text>
+
+  <!-- Line 3: PASS -->
+  <rect x="84" y="336" width="48" height="20" rx="3" fill="rgba(63,184,106,0.15)"/>
+  <text x="108" y="351" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="#3FB86A" text-anchor="middle">PASS</text>
+  <text x="144" y="351" font-family="JetBrains Mono, monospace" font-size="14" fill="#9197A3">  gitleaks             No secrets detected</text>
+
+  <!-- Line 4: PASS -->
+  <rect x="84" y="364" width="48" height="20" rx="3" fill="rgba(63,184,106,0.15)"/>
+  <text x="108" y="379" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="#3FB86A" text-anchor="middle">PASS</text>
+  <text x="144" y="379" font-family="JetBrains Mono, monospace" font-size="14" fill="#9197A3">  eslint-check         0 errors, 0 warnings</text>
+
+  <!-- Line 5: WARN -->
+  <rect x="84" y="392" width="48" height="20" rx="3" fill="rgba(212,160,58,0.15)"/>
+  <text x="108" y="407" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="#D4A03A" text-anchor="middle">WARN</text>
+  <text x="144" y="407" font-family="JetBrains Mono, monospace" font-size="14" fill="#9197A3">  pr-size-check        +847 lines (threshold: 500)</text>
+
+  <!-- Line 6: CRIT -->
+  <rect x="84" y="420" width="48" height="20" rx="3" fill="rgba(244,112,103,0.15)"/>
+  <text x="108" y="435" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="#F47067" text-anchor="middle">CRIT</text>
+  <text x="144" y="435" font-family="JetBrains Mono, monospace" font-size="14" fill="#9197A3">  hardcoded-secret      Possible API key in src/config.ts:24</text>
+
+  <!-- Line 7: PASS -->
+  <rect x="84" y="448" width="48" height="20" rx="3" fill="rgba(63,184,106,0.15)"/>
+  <text x="108" y="463" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="#3FB86A" text-anchor="middle">PASS</text>
+  <text x="144" y="463" font-family="JetBrains Mono, monospace" font-size="14" fill="#9197A3">  dockerfile-check      Best practices followed</text>
+
+  <!-- Line 8: INFO -->
+  <rect x="84" y="476" width="48" height="20" rx="3" fill="rgba(88,166,255,0.15)"/>
+  <text x="108" y="491" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="#58A6FF" text-anchor="middle">INFO</text>
+  <text x="144" y="491" font-family="JetBrains Mono, monospace" font-size="14" fill="#9197A3">  weekly-report         Dashboard updated at /reports/week-38</text>
+
+  <!-- Summary line -->
+  <text x="84" y="530" font-family="JetBrains Mono, monospace" font-size="14" fill="#E2E4EA">6 checks  </text>
+  <text x="180" y="530" font-family="JetBrains Mono, monospace" font-size="14" fill="#6B7280">|</text>
+  <text x="198" y="530" font-family="JetBrains Mono, monospace" font-size="14" fill="#3FB86A">  3 pass</text>
+  <text x="290" y="530" font-family="JetBrains Mono, monospace" font-size="14" fill="#D4A03A">  1 warn</text>
+  <text x="382" y="530" font-family="JetBrains Mono, monospace" font-size="14" fill="#F47067">  1 critical</text>
+  <text x="504" y="530" font-family="JetBrains Mono, monospace" font-size="14" fill="#58A6FF">  1 info</text>
+
+  <!-- Bottom tagline -->
+  <text x="60" y="605" font-family="Noto Sans KR, sans-serif" font-size="16" fill="#6B7280">Open Source  --  40+ Checks  --  Zero Dependencies  --  GitHub Actions</text>
+</svg>
