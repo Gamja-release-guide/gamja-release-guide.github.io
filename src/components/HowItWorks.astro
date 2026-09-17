@@ -132,6 +132,12 @@ const steps = [
     color: var(--accent);
     margin-bottom: 16px;
     flex-shrink: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .flow-step:hover .step-icon {
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(45, 91, 227, 0.15);
   }
 
   .step-title {
