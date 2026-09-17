@@ -17,11 +17,11 @@ const i = t(locale);
       <span class="logo-mark">RG</span>
       <span class="logo-text">Release Guard</span>
     </a>
-    <nav class="nav">
-      <a href="#output">{i.nav.output}</a>
-      <a href="#features">{i.nav.features}</a>
-      <a href="#playground">{i.nav.playground}</a>
-      <a href="#roadmap">{i.nav.roadmap}</a>
+    <nav class="nav" id="main-nav">
+      <a href="#output" class="nav-link">{i.nav.output}</a>
+      <a href="#features" class="nav-link">{i.nav.features}</a>
+      <a href="#playground" class="nav-link">{i.nav.playground}</a>
+      <a href="#roadmap" class="nav-link">{i.nav.roadmap}</a>
       <a href={i.langSwitch.otherHref} class="nav-lang">{i.langSwitch.other}</a>
       <button
         id="theme-toggle"
@@ -43,6 +43,20 @@ const i = t(locale);
         </svg>
       </a>
     </nav>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      type="button"
+      aria-label={locale === 'ko' ? '메뉴 열기' : 'Open menu'}
+      aria-expanded="false"
+    >
+      <svg class="burger-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      <svg class="close-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
   </div>
 </header>
 
@@ -183,12 +197,88 @@ const i = t(locale);
     gap: 4px;
   }
 
+  .menu-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .menu-toggle:hover {
+    color: var(--text);
+    border-color: var(--text-muted);
+  }
+
+  .menu-toggle .close-icon {
+    display: none;
+  }
+
+  .menu-toggle[aria-expanded="true"] .burger-icon {
+    display: none;
+  }
+
+  .menu-toggle[aria-expanded="true"] .close-icon {
+    display: block;
+  }
+
   @media (max-width: 600px) {
-    .nav {
-      gap: 12px;
+    .menu-toggle {
+      display: flex;
     }
-    .nav a:not(.nav-github):not(.nav-lang) {
+
+    .nav {
       display: none;
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px 16px;
+      gap: 0;
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav.is-open {
+      display: flex;
+    }
+
+    .nav .nav-link {
+      display: block;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.9rem;
+    }
+
+    .nav .nav-link:last-of-type {
+      border-bottom: none;
+    }
+
+    .nav .nav-lang,
+    .nav .theme-toggle,
+    .nav .nav-github {
+      margin-top: 8px;
+    }
+
+    .nav .nav-lang {
+      align-self: flex-start;
+    }
+
+    .nav .nav-github {
+      align-self: flex-start;
+      padding: 6px 0;
+    }
+
+    .nav .theme-toggle {
+      align-self: flex-start;
     }
   }
 </style>
@@ -214,4 +304,20 @@ const i = t(locale);
     const current = root.getAttribute('data-theme');
     applyTheme(current === 'dark' ? 'light' : 'dark');
   });
+
+  const menuBtn = document.getElementById('menu-toggle');
+  const nav = document.getElementById('main-nav');
+  if (menuBtn && nav) {
+    menuBtn.addEventListener('click', () => {
+      const open = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!open));
+      nav.classList.toggle('is-open', !open);
+    });
+    nav.querySelectorAll('.nav-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        menuBtn.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('is-open');
+      });
+    });
+  }
 </script>
