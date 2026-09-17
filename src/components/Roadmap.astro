@@ -1,0 +1,158 @@
+---
+const v2Features = [
+  { name: 'Performance Check', desc: 'Bundle size tracking, Lighthouse CI, image optimization detection', status: 'planned' },
+  { name: 'API Contract Check', desc: 'OpenAPI spec diff, GraphQL schema breaking change detection', status: 'planned' },
+  { name: 'Accessibility Check', desc: 'WCAG compliance patterns in component code', status: 'planned' },
+  { name: 'Dependency License Audit', desc: 'Deep transitive license scanning with SPDX compliance', status: 'planned' },
+  { name: 'Config Drift Check', desc: 'Detect env config mismatches across staging/production', status: 'planned' },
+  { name: 'Unified Dashboard', desc: 'Aggregated weekly/monthly health report across all checks', status: 'planned' },
+  { name: 'Custom Check SDK', desc: 'Write your own checks with a simple bash template', status: 'planned' },
+  { name: 'Monorepo Support', desc: 'Per-package check scoping for Nx, Turborepo, Lerna workspaces', status: 'planned' },
+];
+---
+
+<section id="roadmap" class="roadmap">
+  <div class="roadmap-inner">
+    <h2 class="section-title">Roadmap</h2>
+    <p class="section-desc">Release Guard v1 ships with 40+ checks. Here's what's coming in v2.</p>
+
+    <div class="roadmap-cols">
+      <div class="roadmap-col">
+        <div class="roadmap-col-header col-done">
+          <span class="roadmap-col-dot dot-done"></span>
+          v1 -- Shipped
+        </div>
+        <ul class="roadmap-list">
+          <li>40+ automated checks</li>
+          <li>10 categories (Security, Code Quality, PR, API, Build, Files, Container, Env, Docs, Reports)</li>
+          <li>Per-check config via .release-guard.yml</li>
+          <li>Slack & Discord notifications</li>
+          <li>Weekly health dashboard</li>
+          <li>One-command install script</li>
+          <li>9+ language support</li>
+        </ul>
+      </div>
+      <div class="roadmap-col">
+        <div class="roadmap-col-header col-next">
+          <span class="roadmap-col-dot dot-next"></span>
+          v2 -- In Progress
+        </div>
+        <ul class="roadmap-list">
+          {v2Features.map((f) => (
+            <li>
+              <span class="v2-name">{f.name}</span>
+              <span class="v2-desc">{f.desc}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .roadmap {
+    padding: 80px 24px;
+  }
+
+  .roadmap-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'DM Sans', var(--font-sans);
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+  }
+
+  .roadmap-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .roadmap-col {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .roadmap-col-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text);
+  }
+
+  .roadmap-col-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-done { background: var(--pass); }
+  .dot-next { background: var(--accent); }
+
+  .roadmap-list {
+    list-style: none;
+    padding: 12px 18px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .roadmap-list li {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .roadmap-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .col-done .roadmap-list li::before { background: var(--pass); }
+
+  .v2-name {
+    display: block;
+    font-weight: 600;
+    color: var(--text);
+    font-size: 0.85rem;
+  }
+
+  .v2-desc {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 600px) {
+    .roadmap { padding: 48px 20px; }
+    .roadmap-cols { grid-template-columns: 1fr; }
+  }
+</style>
