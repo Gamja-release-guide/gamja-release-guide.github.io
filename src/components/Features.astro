@@ -30,7 +30,7 @@ const i = t(locale);
       {categories.map((cat, idx) => (
         <details class="cat-card" open={idx === 0}>
           <summary class="cat-card-header">
-            <span class="cat-card-name">{cat.name}</span>
+            <span class="cat-card-name"><span class="cat-icon" aria-hidden="true">{cat.icon}</span>{cat.name}</span>
             <span class="cat-card-right">
               <span class="cat-card-count">{cat.count}</span>
               <svg class="cat-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
@@ -160,6 +160,13 @@ const i = t(locale);
     font-weight: 700;
     font-size: 0.88rem;
     color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cat-icon {
+    font-size: 0.92rem;
   }
 
   .cat-card-count {
