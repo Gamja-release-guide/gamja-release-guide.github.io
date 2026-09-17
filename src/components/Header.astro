@@ -1,0 +1,103 @@
+---
+
+---
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <span class="logo-mark">RG</span>
+      <span class="logo-text">Release Guard</span>
+    </a>
+    <nav class="nav">
+      <a href="#features">Features</a>
+      <a href="#playground">Playground</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="https://github.com/Gamja-release-guide/release-guard" class="nav-github" target="_blank" rel="noopener">
+        GitHub
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M3.75 2h3.5a.75.75 0 010 1.5H4.56l7.72 7.72a.75.75 0 11-1.06 1.06L3.5 4.56v2.69a.75.75 0 01-1.5 0v-3.5A1.75 1.75 0 013.75 2z"/>
+        </svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .header-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .logo-mark {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.82rem;
+    background: var(--accent);
+    color: #fff;
+    padding: 3px 7px;
+    border-radius: var(--radius-sm);
+    letter-spacing: 0.04em;
+  }
+
+  .logo-text {
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav a {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .nav a:hover {
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .nav {
+      gap: 16px;
+    }
+    .nav a:not(.nav-github) {
+      display: none;
+    }
+  }
+</style>
