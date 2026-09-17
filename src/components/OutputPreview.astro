@@ -1,0 +1,324 @@
+---
+
+---
+
+<section id="output" class="output-preview">
+  <div class="output-inner">
+    <h2 class="section-title">What Your Team Sees</h2>
+    <p class="section-desc">
+      Release Guard posts a structured comment on every PR. Results are grouped by severity
+      so reviewers know exactly where to look.
+    </p>
+
+    <div class="pr-comment">
+      <div class="pr-comment-header">
+        <div class="pr-avatar">RG</div>
+        <div class="pr-meta">
+          <span class="pr-author">release-guard</span>
+          <span class="pr-label">bot</span>
+          <span class="pr-time">commented 2 minutes ago</span>
+        </div>
+      </div>
+      <div class="pr-comment-body">
+        <div class="pr-title-row">
+          <span class="pr-check-icon">&#9632;</span>
+          <strong>Release Guard Check Results</strong>
+          <span class="pr-summary-badge">6 checks &middot; 1 critical &middot; 1 warning</span>
+        </div>
+
+        <div class="pr-section pr-section-crit">
+          <div class="pr-section-header">
+            <span class="severity-dot severity-crit"></span>
+            Critical (1)
+          </div>
+          <div class="pr-check-row">
+            <span class="pr-check-name">hardcoded-secret</span>
+            <span class="pr-check-detail">Possible API key found in <code>src/config.ts:24</code></span>
+            <span class="pr-check-action">Rotate this secret immediately.</span>
+          </div>
+        </div>
+
+        <div class="pr-section pr-section-warn">
+          <div class="pr-section-header">
+            <span class="severity-dot severity-warn"></span>
+            Warning (1)
+          </div>
+          <div class="pr-check-row">
+            <span class="pr-check-name">pr-size-check</span>
+            <span class="pr-check-detail">PR is <strong>Large</strong> -- +847 lines changed (threshold: 500)</span>
+            <span class="pr-check-action">Consider splitting into smaller PRs for easier review.</span>
+          </div>
+        </div>
+
+        <div class="pr-section pr-section-pass">
+          <div class="pr-section-header">
+            <span class="severity-dot severity-pass"></span>
+            Passed (3)
+          </div>
+          <div class="pr-check-list-compact">
+            <span class="pr-pass-item">gitleaks</span>
+            <span class="pr-pass-item">eslint-check</span>
+            <span class="pr-pass-item">dockerfile-check</span>
+          </div>
+        </div>
+
+        <div class="pr-section pr-section-info">
+          <div class="pr-section-header">
+            <span class="severity-dot severity-info"></span>
+            Info (1)
+          </div>
+          <div class="pr-check-row">
+            <span class="pr-check-name">weekly-report</span>
+            <span class="pr-check-detail">Dashboard updated at <code>/reports/week-38</code></span>
+          </div>
+        </div>
+
+        <div class="pr-footer">
+          <span class="pr-footer-text">Powered by release-guard v1.0 &middot; Customize in .release-guard.yml</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .output-preview {
+    padding: 80px 24px;
+    background: var(--surface);
+  }
+
+  .output-inner {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'DM Sans', var(--font-sans);
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+    max-width: 560px;
+  }
+
+  .pr-comment {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .pr-comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--bg);
+  }
+
+  .pr-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+  }
+
+  .pr-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .pr-author {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+
+  .pr-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .pr-time {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  .pr-comment-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pr-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: var(--text);
+    flex-wrap: wrap;
+  }
+
+  .pr-check-icon {
+    color: var(--accent);
+    font-size: 0.7rem;
+  }
+
+  .pr-summary-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--surface);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  .pr-section {
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .pr-section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  .severity-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .severity-crit { background: var(--critical); }
+  .severity-warn { background: var(--warn); }
+  .severity-pass { background: var(--pass); }
+  .severity-info { background: var(--info); }
+
+  .pr-check-row {
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .pr-check-name {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .pr-check-detail {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .pr-check-detail code {
+    font-size: 0.78rem;
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--code-text);
+  }
+
+  .pr-check-action {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    font-style: italic;
+  }
+
+  .pr-check-list-compact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 12px;
+  }
+
+  .pr-pass-item {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 2px 10px;
+    border-radius: 4px;
+    background: var(--pass-bg);
+    color: var(--pass);
+    font-weight: 500;
+  }
+
+  .pr-section-crit {
+    border-color: var(--critical-bg);
+  }
+
+  .pr-section-crit .pr-section-header {
+    background: var(--critical-bg);
+  }
+
+  .pr-section-warn {
+    border-color: var(--warn-bg);
+  }
+
+  .pr-section-warn .pr-section-header {
+    background: var(--warn-bg);
+  }
+
+  .pr-section-pass .pr-section-header {
+    background: var(--pass-bg);
+  }
+
+  .pr-section-info .pr-section-header {
+    background: var(--info-bg);
+  }
+
+  .pr-footer {
+    padding-top: 4px;
+  }
+
+  .pr-footer-text {
+    font-size: 0.72rem;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 600px) {
+    .output-preview {
+      padding: 48px 20px;
+    }
+
+    .pr-comment-body {
+      padding: 12px;
+    }
+  }
+</style>
