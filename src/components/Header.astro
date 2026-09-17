@@ -23,6 +23,19 @@ const i = t(locale);
       <a href="#playground">{i.nav.playground}</a>
       <a href="#roadmap">{i.nav.roadmap}</a>
       <a href={i.langSwitch.otherHref} class="nav-lang">{i.langSwitch.other}</a>
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        type="button"
+        aria-label={locale === 'ko' ? '테마 전환' : 'Toggle theme'}
+      >
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+      </button>
       <a href="https://github.com/Gamja-release-guide/release-guard" class="nav-github" target="_blank" rel="noopener">
         {i.nav.github}
         <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
@@ -132,6 +145,38 @@ const i = t(locale);
     color: var(--accent) !important;
   }
 
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    padding: 0;
+  }
+
+  .theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .theme-toggle .icon-moon {
+    display: none;
+  }
+
+  :global([data-theme="dark"]) .theme-toggle .icon-sun {
+    display: none;
+  }
+
+  :global([data-theme="dark"]) .theme-toggle .icon-moon {
+    display: block;
+  }
+
   .nav-github {
     display: inline-flex;
     align-items: center;
@@ -140,10 +185,33 @@ const i = t(locale);
 
   @media (max-width: 600px) {
     .nav {
-      gap: 16px;
+      gap: 12px;
     }
     .nav a:not(.nav-github):not(.nav-lang) {
       display: none;
     }
   }
 </style>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+
+  function getTheme(): string {
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme: string) {
+    root.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }
+
+  applyTheme(getTheme());
+
+  toggle?.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme');
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+</script>

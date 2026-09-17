@@ -43,6 +43,30 @@ const canonicalUrl = locale === 'ko' ? `${siteUrl}/ko/` : siteUrl;
       rel="stylesheet"
     />
     <title>{title}</title>
+    <script is:inline>
+      (function(){
+        try {
+          var t = localStorage.getItem('theme');
+          if (!t) t = window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', t);
+        } catch(e){}
+      })();
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Release Guard",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "GitHub Actions",
+      "description": locale === 'ko'
+        ? "모든 Pull Request에서 보안 취약점, 코드 품질 문제, 운영 위험을 자동으로 스캔하는 GitHub Actions 워크플로 모음"
+        : "Drop-in GitHub Actions workflows that automatically check every PR for security vulnerabilities, code quality issues, and operational risks",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "url": siteUrl,
+      "softwareVersion": "1.0",
+      "license": "https://opensource.org/licenses/MIT",
+      "codeRepository": "https://github.com/Gamja-release-guide/release-guard"
+    })} />
   </head>
   <body>
     <slot />
