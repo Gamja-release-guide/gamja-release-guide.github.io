@@ -91,6 +91,13 @@ const i = t(locale);
     border-bottom: 1px solid var(--border-light);
   }
 
+  .header.is-scrolled {
+    border-image: linear-gradient(90deg, var(--border-light), var(--accent), var(--border-light)) 1;
+    border-image-slice: 1;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+
   .header-inner {
     max-width: 1120px;
     margin: 0 auto;
