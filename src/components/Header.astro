@@ -10,6 +10,7 @@ const locale = Astro.props.locale ?? 'en';
 const i = t(locale);
 ---
 
+<a href="#main-content" class="skip-nav">{locale === 'ko' ? '본문으로 건너뛰기' : 'Skip to content'}</a>
 <header class="header">
   <div class="header-inner">
     <a href={locale === 'ko' ? '/ko/' : '/'} class="logo">
@@ -33,6 +34,26 @@ const i = t(locale);
 </header>
 
 <style>
+  .skip-nav {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    z-index: 200;
+    padding: 8px 16px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: top 0.15s;
+  }
+
+  .skip-nav:focus {
+    top: 8px;
+    text-decoration: none;
+  }
+
   .header {
     position: sticky;
     top: 0;

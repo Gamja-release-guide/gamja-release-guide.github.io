@@ -11,7 +11,7 @@ const locale = Astro.props.locale ?? 'en';
 const i = t(locale);
 ---
 
-<section id="features" class="features">
+<section id="features" class="features fade-in-section">
   <div class="features-inner">
     <h2 class="section-title">{totalChecks} {i.features.desc}</h2>
     <p class="section-desc">{locale === 'ko'
