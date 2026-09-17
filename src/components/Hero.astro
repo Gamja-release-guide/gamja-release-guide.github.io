@@ -75,6 +75,18 @@ const i = t(locale);
     border-radius: 20px;
     letter-spacing: 0.02em;
     margin-bottom: 24px;
+    animation: badge-enter 0.6s ease both;
+  }
+
+  @keyframes badge-enter {
+    from {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
   .hero-title {
