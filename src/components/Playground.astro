@@ -1,0 +1,290 @@
+---
+import ConfigPlayground from './ConfigPlayground.tsx';
+---
+
+<section id="playground" class="playground-section">
+  <div class="playground-inner">
+    <h2 class="section-title">Playground</h2>
+    <p class="section-desc">Toggle checks, adjust thresholds, and get a ready-to-use config file. Copy the output directly into your repository.</p>
+    <ConfigPlayground client:visible />
+  </div>
+</section>
+
+<style>
+  .playground-section {
+    padding: 80px 24px;
+  }
+
+  .playground-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'DM Sans', var(--font-sans);
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+    max-width: 560px;
+  }
+
+  @media (max-width: 600px) {
+    .playground-section { padding: 48px 20px; }
+  }
+</style>
+
+<style is:global>
+  .pg-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    min-height: 500px;
+  }
+
+  .pg-controls {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pg-controls-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .pg-controls-title {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+
+  .pg-controls-count {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-faint);
+  }
+
+  .pg-controls-list {
+    overflow-y: auto;
+    max-height: 520px;
+    padding: 8px 0;
+  }
+
+  .pg-category {
+    padding: 0 16px;
+  }
+
+  .pg-cat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 4px;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 4px;
+  }
+
+  .pg-cat-name {
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+
+  .pg-cat-count {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-faint);
+  }
+
+  .pg-check {
+    padding: 6px 0;
+  }
+
+  .pg-check-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+  }
+
+  .pg-check-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .pg-check-name {
+    font-weight: 500;
+    font-size: 0.84rem;
+    color: var(--text);
+  }
+
+  .pg-check-desc {
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+  }
+
+  .pg-toggle {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    border: none;
+    background: var(--border);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s;
+    padding: 0;
+    margin-top: 2px;
+  }
+
+  .pg-toggle--on {
+    background: var(--accent);
+  }
+
+  .pg-toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.15s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  }
+
+  .pg-toggle--on .pg-toggle-knob {
+    transform: translateX(16px);
+  }
+
+  .pg-options {
+    padding: 6px 0 2px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pg-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .pg-option-label {
+    white-space: nowrap;
+  }
+
+  .pg-option-input {
+    width: 72px;
+    padding: 3px 6px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .pg-preview {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 72px;
+    align-self: start;
+  }
+
+  .pg-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .pg-preview-title {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  .pg-copy-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--accent);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.15s;
+  }
+
+  .pg-copy-btn:hover {
+    background: var(--accent-light);
+  }
+
+  .pg-preview-code {
+    padding: 14px 16px;
+    overflow: auto;
+    max-height: 520px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin: 0;
+    white-space: pre;
+  }
+
+  .pg-preview-code code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  @media (max-width: 768px) {
+    .pg-container {
+      grid-template-columns: 1fr;
+    }
+    .pg-preview {
+      position: static;
+    }
+    .pg-controls-list {
+      max-height: 360px;
+    }
+    .pg-check-desc {
+      max-width: 200px;
+    }
+  }
+</style>
