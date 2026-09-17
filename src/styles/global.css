@@ -127,6 +127,11 @@ img {
   display: block;
 }
 
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
 /* Scroll progress bar */
 .scroll-progress {
   position: fixed;
@@ -160,4 +165,21 @@ img {
     opacity: 1;
     transform: none;
   }
+}
+
+@media print {
+  .header, .scroll-progress, .back-to-top, .skip-nav, .cta, .menu-toggle {
+    display: none !important;
+  }
+  .fade-in-section {
+    opacity: 1;
+    transform: none;
+  }
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 12pt;
+  }
+  a { color: #000; }
+  section { padding: 24px 0 !important; }
 }
