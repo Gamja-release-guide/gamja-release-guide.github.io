@@ -27,12 +27,15 @@ const i = t(locale);
     </div>
 
     <div class="cat-grid">
-      {categories.map((cat) => (
-        <div class="cat-card">
-          <div class="cat-card-header">
+      {categories.map((cat, idx) => (
+        <details class="cat-card" open={idx === 0}>
+          <summary class="cat-card-header">
             <span class="cat-card-name">{cat.name}</span>
-            <span class="cat-card-count">{cat.count}</span>
-          </div>
+            <span class="cat-card-right">
+              <span class="cat-card-count">{cat.count}</span>
+              <svg class="cat-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </summary>
           <ul class="cat-card-list">
             {cat.checks.map((check) => (
               <li>
@@ -41,7 +44,7 @@ const i = t(locale);
               </li>
             ))}
           </ul>
-        </div>
+        </details>
       ))}
     </div>
 
@@ -120,6 +123,37 @@ const i = t(locale);
     justify-content: space-between;
     padding: 12px 16px;
     border-bottom: 1px solid var(--border-light);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .cat-card-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .cat-card-header::marker {
+    content: '';
+  }
+
+  .cat-card-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cat-chevron {
+    color: var(--text-faint);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .cat-card[open] .cat-chevron {
+    transform: rotate(180deg);
+  }
+
+  .cat-card:not([open]) .cat-card-header {
+    border-bottom: none;
   }
 
   .cat-card-name {
