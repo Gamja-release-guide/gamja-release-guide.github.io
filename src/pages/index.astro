@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Installation from '../components/Installation.astro';
+import Playground from '../components/Playground.astro';
+import Features from '../components/Features.astro';
+import Roadmap from '../components/Roadmap.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Release Guard"
+  description="Drop-in GitHub Actions workflows that automatically check every PR for security vulnerabilities, code quality issues, and operational risks. 40+ checks, pure bash, free."
+>
+  <Header />
+  <main>
+    <Hero />
+    <Installation />
+    <Features />
+    <Playground />
+    <Roadmap />
+  </main>
+  <Footer />
+</Base>
