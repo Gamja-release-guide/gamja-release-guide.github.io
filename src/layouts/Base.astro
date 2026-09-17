@@ -69,7 +69,26 @@ const canonicalUrl = locale === 'ko' ? `${siteUrl}/ko/` : siteUrl;
     })} />
   </head>
   <body>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <slot />
+    <script is:inline>
+      (function(){
+        var bar = document.getElementById('scroll-progress');
+        if (!bar || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var ticking = false;
+        window.addEventListener('scroll', function() {
+          if (!ticking) {
+            requestAnimationFrame(function() {
+              var h = document.documentElement.scrollHeight - window.innerHeight;
+              var pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+              bar.style.width = pct + '%';
+              ticking = false;
+            });
+            ticking = true;
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
 
