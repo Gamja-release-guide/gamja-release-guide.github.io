@@ -1,0 +1,113 @@
+---
+import type { Locale } from '../i18n/translations';
+
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const isKo = locale === 'ko';
+
+const stats = [
+  { value: 40, suffix: '+', label: isKo ? '보안/품질 체크' : 'Security & quality checks' },
+  { value: 9, suffix: '', label: isKo ? '지원 언어' : 'Languages supported' },
+  { value: 5, suffix: isKo ? '분' : 'min', label: isKo ? '설치 시간' : 'Setup time' },
+  { value: 0, suffix: isKo ? '원' : '$0', label: isKo ? '비용 (무료)' : 'Cost (free forever)' },
+];
+---
+
+<section class="stats fade-in-section">
+  <div class="stats-inner">
+    {stats.map((stat) => (
+      <div class="stat-item">
+        <span class="stat-value" data-target={stat.value}>
+          {stat.value === 0 ? '' : '0'}{stat.suffix}
+        </span>
+        <span class="stat-label">{stat.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stats {
+    padding: 48px 24px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .stats-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-value {
+    font-family: 'DM Sans', var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .stats { padding: 32px 20px; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  }
+</style>
+
+<script>
+  function animateCounters() {
+    const counters = document.querySelectorAll('.stat-value[data-target]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLElement;
+        const target = parseInt(el.dataset.target || '0', 10);
+        if (target === 0) {
+          observer.unobserve(el);
+          return;
+        }
+        const suffix = el.textContent?.replace(/\d/g, '').trim() || '';
+        const duration = 1200;
+        const start = performance.now();
+        function tick(now: number) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(eased * target);
+          el.textContent = current + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => observer.observe(c));
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.stat-value[data-target]').forEach(el => {
+      const target = (el as HTMLElement).dataset.target || '0';
+      const suffix = el.textContent?.replace(/\d/g, '').trim() || '';
+      if (parseInt(target, 10) !== 0) el.textContent = target + suffix;
+    });
+  } else {
+    animateCounters();
+  }
+</script>
