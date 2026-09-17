@@ -1,0 +1,157 @@
+---
+import type { Locale } from '../i18n/translations';
+
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const isKo = locale === 'ko';
+
+const rows = [
+  {
+    label: isKo ? '보안 스캔' : 'Security scanning',
+    before: isKo ? '수동 리뷰에 의존' : 'Relies on manual review',
+    after: isKo ? '40개 이상 체크 자동 실행' : '40+ checks run automatically',
+  },
+  {
+    label: isKo ? '비용' : 'Cost',
+    before: isKo ? '유료 SaaS 도구 필요' : 'Paid SaaS tools required',
+    after: isKo ? '무료, 오픈소스' : 'Free, open source',
+  },
+  {
+    label: isKo ? '설정 시간' : 'Setup time',
+    before: isKo ? '시간~일 단위 (도구별 설정)' : 'Hours to days (per tool)',
+    after: isKo ? '5분 (파일 복사)' : '5 minutes (copy files)',
+  },
+  {
+    label: isKo ? '외부 의존성' : 'External deps',
+    before: isKo ? '서드파티 서비스, API 키' : '3rd-party services, API keys',
+    after: isKo ? '없음 (순수 bash)' : 'None (pure bash)',
+  },
+  {
+    label: isKo ? '결과 확인' : 'Result visibility',
+    before: isKo ? '별도 대시보드 확인' : 'Check separate dashboard',
+    after: isKo ? 'PR 코멘트로 직접 표시' : 'Inline PR comments',
+  },
+  {
+    label: isKo ? '커스터마이징' : 'Customization',
+    before: isKo ? '도구 제한에 종속' : 'Limited by tool constraints',
+    after: isKo ? '.yml 파일로 체크별 ON/OFF' : 'Per-check ON/OFF via .yml',
+  },
+];
+---
+
+<section class="comparison fade-in-section">
+  <div class="comparison-inner">
+    <h2 class="section-title">{isKo ? '왜 Release Guard인가?' : 'Why Release Guard?'}</h2>
+    <p class="section-desc">{isKo ? '기존 방식과 비교해 보세요.' : 'Compare it to the alternatives.'}</p>
+    <div class="table-wrap">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th class="cmp-th-label"></th>
+            <th class="cmp-th-before">{isKo ? '기존 방식' : 'Without'}</th>
+            <th class="cmp-th-after">{isKo ? 'Release Guard' : 'With Release Guard'}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr>
+              <td class="cmp-label">{row.label}</td>
+              <td class="cmp-before">{row.before}</td>
+              <td class="cmp-after">{row.after}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .comparison {
+    padding: 80px 24px;
+  }
+
+  .comparison-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'DM Sans', var(--font-sans);
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+    max-width: 560px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  .cmp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  .cmp-table th {
+    text-align: left;
+    font-weight: 600;
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .cmp-th-label {
+    width: 150px;
+    color: var(--text-faint);
+  }
+
+  .cmp-th-before {
+    color: var(--text-muted);
+  }
+
+  .cmp-th-after {
+    color: var(--accent);
+  }
+
+  .cmp-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: top;
+  }
+
+  .cmp-label {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .cmp-before {
+    color: var(--text-muted);
+  }
+
+  .cmp-after {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .comparison { padding: 48px 20px; }
+    .cmp-table { font-size: 0.8rem; }
+    .cmp-table th, .cmp-table td { padding: 10px 10px; }
+    .cmp-th-label { width: auto; }
+  }
+</style>
