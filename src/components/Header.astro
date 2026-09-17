@@ -151,8 +151,13 @@ const i = t(locale);
     transition: width 0.2s ease;
   }
 
-  .nav a.nav-link:hover::after {
+  .nav a.nav-link:hover::after,
+  .nav a.nav-link.is-active::after {
     width: 100%;
+  }
+
+  .nav a.nav-link.is-active {
+    color: var(--text);
   }
 
   .nav a:hover {
@@ -335,5 +340,28 @@ const i = t(locale);
         nav.classList.remove('is-open');
       });
     });
+  }
+
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav a.nav-link');
+  const sectionIds = Array.from(navLinks).map((a) => a.getAttribute('href')?.replace('#', '')).filter(Boolean) as string[];
+  const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+  if (sections.length) {
+    let current = '';
+    const spyObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            current = entry.target.id;
+          }
+        });
+        navLinks.forEach((link) => {
+          const href = link.getAttribute('href');
+          link.classList.toggle('is-active', href === `#${current}`);
+        });
+      },
+      { rootMargin: '-20% 0px -60% 0px' }
+    );
+    sections.forEach((s) => spyObserver.observe(s));
   }
 </script>
