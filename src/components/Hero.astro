@@ -28,18 +28,18 @@ const i = t(locale);
         <span class="terminal-dot"></span>
         <span class="terminal-title">{i.hero.terminalTitle}</span>
       </div>
-      <pre class="terminal-body"><code><span class="t-comment">{i.hero.terminalComment1}</span>
-
-<span class="t-pass">PASS</span>  secret-scan         No secrets detected
-<span class="t-pass">PASS</span>  sql-injection       No injection patterns found
-<span class="t-warn">WARN</span>  pr-size-check       PR is Large (487 lines)
-<span class="t-warn">WARN</span>  complexity-check    2 files exceed nesting depth 4
-<span class="t-crit">CRIT</span>  xss-check           dangerouslySetInnerHTML in UserCard.tsx:42
-<span class="t-pass">PASS</span>  lockfile-check      package-lock.json in sync
-<span class="t-info">INFO</span>  todo-fixme-check    3 new TODO markers added
-<span class="t-pass">PASS</span>  encoding-check      All files UTF-8, consistent line endings
-
-<span class="t-comment">{i.hero.terminalComment2}</span></code></pre>
+      <div class="terminal-body" id="hero-terminal">
+        <div class="term-line" data-delay="0"><span class="t-comment">{i.hero.terminalComment1}</span></div>
+        <div class="term-line" data-delay="300"><span class="t-pass">PASS</span>  secret-scan         No secrets detected</div>
+        <div class="term-line" data-delay="500"><span class="t-pass">PASS</span>  sql-injection       No injection patterns found</div>
+        <div class="term-line" data-delay="700"><span class="t-warn">WARN</span>  pr-size-check       PR is Large (487 lines)</div>
+        <div class="term-line" data-delay="900"><span class="t-warn">WARN</span>  complexity-check    2 files exceed nesting depth 4</div>
+        <div class="term-line" data-delay="1100"><span class="t-crit">CRIT</span>  xss-check           dangerouslySetInnerHTML in UserCard.tsx:42</div>
+        <div class="term-line" data-delay="1300"><span class="t-pass">PASS</span>  lockfile-check      package-lock.json in sync</div>
+        <div class="term-line" data-delay="1500"><span class="t-info">INFO</span>  todo-fixme-check    3 new TODO markers added</div>
+        <div class="term-line" data-delay="1700"><span class="t-pass">PASS</span>  encoding-check      All files UTF-8, consistent line endings</div>
+        <div class="term-line" data-delay="2000"><span class="t-comment">{i.hero.terminalComment2}</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -174,11 +174,31 @@ const i = t(locale);
     font-size: inherit;
   }
 
+  .term-line {
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    white-space: pre;
+  }
+
+  .term-line.is-typed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .t-comment { color: var(--text-faint); }
   .t-pass { color: var(--pass); font-weight: 500; }
   .t-warn { color: var(--warn); font-weight: 500; }
   .t-crit { color: var(--critical); font-weight: 500; }
   .t-info { color: var(--info); font-weight: 500; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .term-line {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
 
   @media (max-width: 600px) {
     .hero {
@@ -190,3 +210,27 @@ const i = t(locale);
     }
   }
 </style>
+
+<script>
+  const terminal = document.getElementById('hero-terminal');
+  if (terminal) {
+    const lines = terminal.querySelectorAll('.term-line');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      lines.forEach(l => l.classList.add('is-typed'));
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            lines.forEach(line => {
+              const delay = parseInt(line.dataset.delay || '0', 10);
+              setTimeout(() => line.classList.add('is-typed'), delay);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(terminal);
+    }
+  }
+</script>
