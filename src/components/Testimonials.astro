@@ -97,6 +97,12 @@ const testimonials = [
     display: flex;
     flex-direction: column;
     gap: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
   }
 
   .testimonial-quote {
