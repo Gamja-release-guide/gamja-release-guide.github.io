@@ -99,6 +99,15 @@ const i = t(locale);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: height 0.2s ease;
+  }
+
+  .header.is-scrolled .header-inner {
+    height: 48px;
+  }
+
+  .header.is-scrolled .logo-text {
+    font-size: 0.88rem;
   }
 
   .logo {
@@ -340,6 +349,19 @@ const i = t(locale);
         nav.classList.remove('is-open');
       });
     });
+  }
+
+  const header = document.querySelector('.header');
+  if (header) {
+    const scrollThreshold = 80;
+    let scrolled = false;
+    window.addEventListener('scroll', () => {
+      const shouldShrink = window.scrollY > scrollThreshold;
+      if (shouldShrink !== scrolled) {
+        scrolled = shouldShrink;
+        header.classList.toggle('is-scrolled', scrolled);
+      }
+    }, { passive: true });
   }
 
   const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav a.nav-link');
