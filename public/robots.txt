@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gamja-release-guide.github.io/sitemap-index.xml
