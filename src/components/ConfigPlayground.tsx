@@ -117,7 +117,8 @@ function CategoryGroup({
   );
 }
 
-export default function ConfigPlayground() {
+export default function ConfigPlayground({ locale = 'en' }: { locale?: string }) {
+  const isKo = locale === 'ko';
   const [states, setStates] = useState<Record<string, CheckState>>(() => {
     const init: Record<string, CheckState> = {};
     for (const cat of categories) {
@@ -185,9 +186,9 @@ export default function ConfigPlayground() {
     <div className="pg-container">
       <div className="pg-controls">
         <div className="pg-controls-header">
-          <span className="pg-controls-title">Checks</span>
+          <span className="pg-controls-title">{isKo ? '체크 목록' : 'Checks'}</span>
           <span className="pg-controls-count">
-            {enabledCount}/{Object.keys(states).length} enabled
+            {enabledCount}/{Object.keys(states).length} {isKo ? '활성화' : 'enabled'}
           </span>
         </div>
         <div className="pg-controls-list">
@@ -210,7 +211,7 @@ export default function ConfigPlayground() {
             className="pg-copy-btn"
             onClick={handleCopy}
           >
-            {copied ? 'Copied!' : 'Copy'}
+            {copied ? (isKo ? '복사됨!' : 'Copied!') : (isKo ? '복사' : 'Copy')}
           </button>
         </div>
         <pre className="pg-preview-code">

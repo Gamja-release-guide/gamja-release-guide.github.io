@@ -1,4 +1,13 @@
 ---
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const i = t(locale);
 const year = new Date().getFullYear();
 ---
 
@@ -10,25 +19,25 @@ const year = new Date().getFullYear();
           <span class="footer-mark">RG</span>
           Release Guard
         </span>
-        <p class="footer-tagline">Automated PR safety checks for GitHub repositories.</p>
+        <p class="footer-tagline">{i.footer.tagline}</p>
       </div>
       <div class="footer-links">
         <div class="footer-col">
-          <h4>Project</h4>
+          <h4>{i.footer.project}</h4>
           <a href="https://github.com/Gamja-release-guide/release-guard" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://github.com/Gamja-release-guide/release-guard/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a>
-          <a href="https://github.com/Gamja-release-guide/release-guard/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+          <a href="https://github.com/Gamja-release-guide/release-guard/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">{i.footer.contributing}</a>
+          <a href="https://github.com/Gamja-release-guide/release-guard/blob/main/LICENSE" target="_blank" rel="noopener">{i.footer.license}</a>
         </div>
         <div class="footer-col">
-          <h4>Resources</h4>
-          <a href="#install">Installation</a>
-          <a href="#features">Features</a>
-          <a href="#playground">Playground</a>
+          <h4>{i.footer.resources}</h4>
+          <a href="#install">{locale === 'ko' ? '설치' : 'Installation'}</a>
+          <a href="#features">{i.nav.features}</a>
+          <a href="#playground">{i.nav.playground}</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; {year} Gamja Lab. Open source under MIT.</span>
+      <span>&copy; {year} {i.footer.copyright}</span>
     </div>
   </div>
 </footer>

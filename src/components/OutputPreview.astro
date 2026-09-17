@@ -1,59 +1,64 @@
 ---
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
 
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const i = t(locale);
 ---
 
 <section id="output" class="output-preview">
   <div class="output-inner">
-    <h2 class="section-title">What Your Team Sees</h2>
-    <p class="section-desc">
-      Release Guard posts a structured comment on every PR. Results are grouped by severity
-      so reviewers know exactly where to look.
-    </p>
+    <h2 class="section-title">{i.output.title}</h2>
+    <p class="section-desc">{i.output.desc}</p>
 
     <div class="pr-comment">
       <div class="pr-comment-header">
         <div class="pr-avatar">RG</div>
         <div class="pr-meta">
-          <span class="pr-author">release-guard</span>
-          <span class="pr-label">bot</span>
-          <span class="pr-time">commented 2 minutes ago</span>
+          <span class="pr-author">{i.output.botName}</span>
+          <span class="pr-label">{i.output.botLabel}</span>
+          <span class="pr-time">{i.output.timeAgo}</span>
         </div>
       </div>
       <div class="pr-comment-body">
         <div class="pr-title-row">
           <span class="pr-check-icon">&#9632;</span>
-          <strong>Release Guard Check Results</strong>
-          <span class="pr-summary-badge">6 checks &middot; 1 critical &middot; 1 warning</span>
+          <strong>{i.output.resultTitle}</strong>
+          <span class="pr-summary-badge">{i.output.summaryBadge}</span>
         </div>
 
         <div class="pr-section pr-section-crit">
           <div class="pr-section-header">
             <span class="severity-dot severity-crit"></span>
-            Critical (1)
+            {i.output.criticalLabel} (1)
           </div>
           <div class="pr-check-row">
             <span class="pr-check-name">hardcoded-secret</span>
-            <span class="pr-check-detail">Possible API key found in <code>src/config.ts:24</code></span>
-            <span class="pr-check-action">Rotate this secret immediately.</span>
+            <span class="pr-check-detail">{i.output.critDetail}</span>
+            <span class="pr-check-action">{i.output.critAction}</span>
           </div>
         </div>
 
         <div class="pr-section pr-section-warn">
           <div class="pr-section-header">
             <span class="severity-dot severity-warn"></span>
-            Warning (1)
+            {i.output.warningLabel} (1)
           </div>
           <div class="pr-check-row">
             <span class="pr-check-name">pr-size-check</span>
-            <span class="pr-check-detail">PR is <strong>Large</strong> -- +847 lines changed (threshold: 500)</span>
-            <span class="pr-check-action">Consider splitting into smaller PRs for easier review.</span>
+            <span class="pr-check-detail">{i.output.warnDetail}</span>
+            <span class="pr-check-action">{i.output.warnAction}</span>
           </div>
         </div>
 
         <div class="pr-section pr-section-pass">
           <div class="pr-section-header">
             <span class="severity-dot severity-pass"></span>
-            Passed (3)
+            {i.output.passedLabel} (3)
           </div>
           <div class="pr-check-list-compact">
             <span class="pr-pass-item">gitleaks</span>
@@ -65,16 +70,16 @@
         <div class="pr-section pr-section-info">
           <div class="pr-section-header">
             <span class="severity-dot severity-info"></span>
-            Info (1)
+            {i.output.infoLabel} (1)
           </div>
           <div class="pr-check-row">
             <span class="pr-check-name">weekly-report</span>
-            <span class="pr-check-detail">Dashboard updated at <code>/reports/week-38</code></span>
+            <span class="pr-check-detail">{i.output.infoDetail}</span>
           </div>
         </div>
 
         <div class="pr-footer">
-          <span class="pr-footer-text">Powered by release-guard v1.0 &middot; Customize in .release-guard.yml</span>
+          <span class="pr-footer-text">{i.output.footerText}</span>
         </div>
       </div>
     </div>
@@ -279,33 +284,14 @@
     font-weight: 500;
   }
 
-  .pr-section-crit {
-    border-color: var(--critical-bg);
-  }
+  .pr-section-crit { border-color: var(--critical-bg); }
+  .pr-section-crit .pr-section-header { background: var(--critical-bg); }
+  .pr-section-warn { border-color: var(--warn-bg); }
+  .pr-section-warn .pr-section-header { background: var(--warn-bg); }
+  .pr-section-pass .pr-section-header { background: var(--pass-bg); }
+  .pr-section-info .pr-section-header { background: var(--info-bg); }
 
-  .pr-section-crit .pr-section-header {
-    background: var(--critical-bg);
-  }
-
-  .pr-section-warn {
-    border-color: var(--warn-bg);
-  }
-
-  .pr-section-warn .pr-section-header {
-    background: var(--warn-bg);
-  }
-
-  .pr-section-pass .pr-section-header {
-    background: var(--pass-bg);
-  }
-
-  .pr-section-info .pr-section-header {
-    background: var(--info-bg);
-  }
-
-  .pr-footer {
-    padding-top: 4px;
-  }
+  .pr-footer { padding-top: 4px; }
 
   .pr-footer-text {
     font-size: 0.72rem;
@@ -313,12 +299,7 @@
   }
 
   @media (max-width: 600px) {
-    .output-preview {
-      padding: 48px 20px;
-    }
-
-    .pr-comment-body {
-      padding: 12px;
-    }
+    .output-preview { padding: 48px 20px; }
+    .pr-comment-body { padding: 12px; }
   }
 </style>

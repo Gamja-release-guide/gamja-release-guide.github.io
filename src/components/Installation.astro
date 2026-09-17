@@ -1,18 +1,26 @@
 ---
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
 
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const i = t(locale);
 ---
 
 <section id="install" class="install">
   <div class="install-inner">
-    <h2 class="section-title">Get started in three steps</h2>
-    <p class="section-desc">No npm install, no API keys, no paid plans. Copy the workflows into your repo and every PR gets checked automatically.</p>
+    <h2 class="section-title">{i.install.title}</h2>
+    <p class="section-desc">{i.install.desc}</p>
 
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-content">
-          <h3>Copy workflows</h3>
-          <p>Clone the <code>.github/workflows/</code> and <code>.github/actions/</code> directories into your repository.</p>
+          <h3>{i.install.step1Title}</h3>
+          <p>{i.install.step1Desc}</p>
           <div class="code-block">
             <div class="code-header">
               <span>Terminal</span>
@@ -25,8 +33,8 @@
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-content">
-          <h3>Configure (optional)</h3>
-          <p>Create <code>.release-guard.yml</code> in your repo root to enable/disable checks and set thresholds.</p>
+          <h3>{i.install.step2Title}</h3>
+          <p>{i.install.step2Desc}</p>
           <div class="code-block">
             <div class="code-header">
               <span>.release-guard.yml</span>
@@ -47,8 +55,8 @@
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-content">
-          <h3>Open a PR</h3>
-          <p>That's it. Release Guard runs on every pull request and posts findings as PR comments with severity levels and fix suggestions.</p>
+          <h3>{i.install.step3Title}</h3>
+          <p>{i.install.step3Desc}</p>
           <div class="result-preview">
             <div class="result-item result-pass">
               <span class="result-badge badge-pass">PASS</span>

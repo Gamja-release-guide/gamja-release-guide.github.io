@@ -1,41 +1,47 @@
 ---
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const i = t(locale);
+
 const v2Features = [
-  { name: 'Performance Check', desc: 'Bundle size tracking, Lighthouse CI, image optimization detection', status: 'planned' },
-  { name: 'API Contract Check', desc: 'OpenAPI spec diff, GraphQL schema breaking change detection', status: 'planned' },
-  { name: 'Accessibility Check', desc: 'WCAG compliance patterns in component code', status: 'planned' },
-  { name: 'Dependency License Audit', desc: 'Deep transitive license scanning with SPDX compliance', status: 'planned' },
-  { name: 'Config Drift Check', desc: 'Detect env config mismatches across staging/production', status: 'planned' },
-  { name: 'Unified Dashboard', desc: 'Aggregated weekly/monthly health report across all checks', status: 'planned' },
-  { name: 'Custom Check SDK', desc: 'Write your own checks with a simple bash template', status: 'planned' },
-  { name: 'Monorepo Support', desc: 'Per-package check scoping for Nx, Turborepo, Lerna workspaces', status: 'planned' },
+  { name: 'Performance Check', desc: locale === 'ko' ? '번들 크기 추적, Lighthouse CI, 이미지 최적화 감지' : 'Bundle size tracking, Lighthouse CI, image optimization detection' },
+  { name: 'API Contract Check', desc: locale === 'ko' ? 'OpenAPI 스펙 비교, GraphQL 스키마 호환성 검사' : 'OpenAPI spec diff, GraphQL schema breaking change detection' },
+  { name: 'Accessibility Check', desc: locale === 'ko' ? '컴포넌트 코드의 WCAG 준수 패턴 검사' : 'WCAG compliance patterns in component code' },
+  { name: 'Dependency License Audit', desc: locale === 'ko' ? 'SPDX 준수 기반 전이적 라이선스 심층 스캔' : 'Deep transitive license scanning with SPDX compliance' },
+  { name: 'Config Drift Check', desc: locale === 'ko' ? 'staging/production 환경 설정 불일치 감지' : 'Detect env config mismatches across staging/production' },
+  { name: 'Unified Dashboard', desc: locale === 'ko' ? '모든 체크의 주간/월간 종합 건강 보고서' : 'Aggregated weekly/monthly health report across all checks' },
+  { name: 'Custom Check SDK', desc: locale === 'ko' ? '간단한 bash 템플릿으로 커스텀 체크 작성' : 'Write your own checks with a simple bash template' },
+  { name: 'Monorepo Support', desc: locale === 'ko' ? 'Nx, Turborepo, Lerna 워크스페이스별 체크 범위 지정' : 'Per-package check scoping for Nx, Turborepo, Lerna workspaces' },
 ];
 ---
 
 <section id="roadmap" class="roadmap">
   <div class="roadmap-inner">
-    <h2 class="section-title">Roadmap</h2>
-    <p class="section-desc">Release Guard v1 ships with 40+ checks. Here's what's coming in v2.</p>
+    <h2 class="section-title">{i.roadmap.title}</h2>
+    <p class="section-desc">{i.roadmap.desc}</p>
 
     <div class="roadmap-cols">
       <div class="roadmap-col">
         <div class="roadmap-col-header col-done">
           <span class="roadmap-col-dot dot-done"></span>
-          v1 -- Shipped
+          {i.roadmap.v1Header}
         </div>
         <ul class="roadmap-list">
-          <li>40+ automated checks</li>
-          <li>10 categories (Security, Code Quality, PR, API, Build, Files, Container, Env, Docs, Reports)</li>
-          <li>Per-check config via .release-guard.yml</li>
-          <li>Slack & Discord notifications</li>
-          <li>Weekly health dashboard</li>
-          <li>One-command install script</li>
-          <li>9+ language support</li>
+          {i.roadmap.v1Items.map((item) => (
+            <li>{item}</li>
+          ))}
         </ul>
       </div>
       <div class="roadmap-col">
         <div class="roadmap-col-header col-next">
           <span class="roadmap-col-dot dot-next"></span>
-          v2 -- In Progress
+          {i.roadmap.v2Header}
         </div>
         <ul class="roadmap-list">
           {v2Features.map((f) => (

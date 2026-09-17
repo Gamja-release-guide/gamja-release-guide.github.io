@@ -1,30 +1,34 @@
 ---
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
 
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const i = t(locale);
 ---
 
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-badge">Open Source &middot; Zero Dependencies &middot; Free</div>
+    <div class="hero-badge">{i.hero.badge}</div>
     <h1 class="hero-title">
-      Every PR, automatically<br />checked for what matters.
+      {i.hero.title}<br />{i.hero.titleBreak}
     </h1>
-    <p class="hero-desc">
-      Release Guard is a drop-in collection of GitHub Actions workflows
-      that scans every pull request for security vulnerabilities, code quality issues,
-      and operational risks. 40+ checks, pure bash, no external services.
-    </p>
+    <p class="hero-desc">{i.hero.desc}</p>
     <div class="hero-actions">
-      <a href="#install" class="btn btn-primary">Get Started</a>
-      <a href="#playground" class="btn btn-secondary">Try Playground</a>
+      <a href="#install" class="btn btn-primary">{i.hero.cta}</a>
+      <a href="#playground" class="btn btn-secondary">{i.hero.ctaSecondary}</a>
     </div>
     <div class="hero-terminal">
       <div class="terminal-bar">
         <span class="terminal-dot"></span>
         <span class="terminal-dot"></span>
         <span class="terminal-dot"></span>
-        <span class="terminal-title">release-guard.yml</span>
+        <span class="terminal-title">{i.hero.terminalTitle}</span>
       </div>
-      <pre class="terminal-body"><code><span class="t-comment"># PR opened &rarr; 40+ checks run automatically</span>
+      <pre class="terminal-body"><code><span class="t-comment">{i.hero.terminalComment1}</span>
 
 <span class="t-pass">PASS</span>  secret-scan         No secrets detected
 <span class="t-pass">PASS</span>  sql-injection       No injection patterns found
@@ -35,7 +39,7 @@
 <span class="t-info">INFO</span>  todo-fixme-check    3 new TODO markers added
 <span class="t-pass">PASS</span>  encoding-check      All files UTF-8, consistent line endings
 
-<span class="t-comment"># Results posted as PR comments with severity + fix suggestions</span></code></pre>
+<span class="t-comment">{i.hero.terminalComment2}</span></code></pre>
     </div>
   </div>
 </section>

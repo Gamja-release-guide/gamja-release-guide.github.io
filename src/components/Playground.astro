@@ -1,12 +1,21 @@
 ---
 import ConfigPlayground from './ConfigPlayground.tsx';
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const i = t(locale);
 ---
 
 <section id="playground" class="playground-section">
   <div class="playground-inner">
-    <h2 class="section-title">Playground</h2>
-    <p class="section-desc">Toggle checks, adjust thresholds, and get a ready-to-use config file. Copy the output directly into your repository.</p>
-    <ConfigPlayground client:visible />
+    <h2 class="section-title">{i.playground.title}</h2>
+    <p class="section-desc">{i.playground.desc}</p>
+    <ConfigPlayground client:visible locale={locale} />
   </div>
 </section>
 

@@ -1,20 +1,29 @@
 ---
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
 
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const i = t(locale);
 ---
 
 <header class="header">
   <div class="header-inner">
-    <a href="/" class="logo">
+    <a href={locale === 'ko' ? '/ko/' : '/'} class="logo">
       <span class="logo-mark">RG</span>
       <span class="logo-text">Release Guard</span>
     </a>
     <nav class="nav">
-      <a href="#output">Output</a>
-      <a href="#features">Features</a>
-      <a href="#playground">Playground</a>
-      <a href="#roadmap">Roadmap</a>
+      <a href="#output">{i.nav.output}</a>
+      <a href="#features">{i.nav.features}</a>
+      <a href="#playground">{i.nav.playground}</a>
+      <a href="#roadmap">{i.nav.roadmap}</a>
+      <a href={i.langSwitch.otherHref} class="nav-lang">{i.langSwitch.other}</a>
       <a href="https://github.com/Gamja-release-guide/release-guard" class="nav-github" target="_blank" rel="noopener">
-        GitHub
+        {i.nav.github}
         <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
           <path d="M3.75 2h3.5a.75.75 0 010 1.5H4.56l7.72 7.72a.75.75 0 11-1.06 1.06L3.5 4.56v2.69a.75.75 0 01-1.5 0v-3.5A1.75 1.75 0 013.75 2z"/>
         </svg>
@@ -87,6 +96,21 @@
     text-decoration: none;
   }
 
+  .nav-lang {
+    font-family: var(--font-mono);
+    font-size: 0.78rem !important;
+    font-weight: 500;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-lang:hover {
+    border-color: var(--accent);
+    color: var(--accent) !important;
+  }
+
   .nav-github {
     display: inline-flex;
     align-items: center;
@@ -97,7 +121,7 @@
     .nav {
       gap: 16px;
     }
-    .nav a:not(.nav-github) {
+    .nav a:not(.nav-github):not(.nav-lang) {
       display: none;
     }
   }

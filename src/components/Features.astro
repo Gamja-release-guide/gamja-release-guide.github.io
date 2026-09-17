@@ -1,11 +1,23 @@
 ---
 import { categories, totalChecks } from '../data/checks';
+import type { Locale } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const i = t(locale);
 ---
 
 <section id="features" class="features">
   <div class="features-inner">
-    <h2 class="section-title">{totalChecks} checks across {categories.length} categories</h2>
-    <p class="section-desc">Every check runs on the PR diff only -- fast, focused, and noise-free. Results post as PR comments with severity levels and actionable fixes.</p>
+    <h2 class="section-title">{totalChecks} {i.features.desc}</h2>
+    <p class="section-desc">{locale === 'ko'
+      ? 'PR diff만 분석합니다 -- 빠르고, 정확하고, 노이즈 없이. 결과는 심각도와 수정 방법과 함께 PR 코멘트로 게시됩니다.'
+      : 'Every check runs on the PR diff only -- fast, focused, and noise-free. Results post as PR comments with severity levels and actionable fixes.'
+    }</p>
 
     <div class="severity-bar">
       <span class="sev sev-pass">PASS</span>
@@ -34,8 +46,8 @@ import { categories, totalChecks } from '../data/checks';
     </div>
 
     <div class="lang-support">
-      <h3>Language Support</h3>
-      <p>JavaScript, TypeScript, Python, Go, Java, Ruby, PHP, Rust, Shell. Template engines: EJS, ERB, Handlebars, Pug, Vue, Svelte.</p>
+      <h3>{i.features.languageTitle}</h3>
+      <p>{i.features.languageDesc} JavaScript, TypeScript, Python, Go, Java, Ruby, PHP, Rust, Shell. Template engines: EJS, ERB, Handlebars, Pug, Vue, Svelte.</p>
     </div>
   </div>
 </section>

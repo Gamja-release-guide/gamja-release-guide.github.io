@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Hero from '../../components/Hero.astro';
+import Installation from '../../components/Installation.astro';
+import OutputPreview from '../../components/OutputPreview.astro';
+import Playground from '../../components/Playground.astro';
+import Features from '../../components/Features.astro';
+import Roadmap from '../../components/Roadmap.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  title="Release Guard - PR 자동 안전 검사"
+  description="모든 Pull Request에서 보안 취약점, 코드 품질 문제, 운영 위험을 자동으로 스캔하는 GitHub Actions 워크플로 모음. 40개 이상의 체크, 순수 bash, 무료."
+  locale="ko"
+>
+  <Header locale="ko" />
+  <main>
+    <Hero locale="ko" />
+    <Installation locale="ko" />
+    <OutputPreview locale="ko" />
+    <Features locale="ko" />
+    <Playground locale="ko" />
+    <Roadmap locale="ko" />
+  </main>
+  <Footer locale="ko" />
+</Base>
