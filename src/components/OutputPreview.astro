@@ -55,17 +55,18 @@ const i = t(locale);
           </div>
         </div>
 
-        <div class="pr-section pr-section-pass">
-          <div class="pr-section-header">
+        <details class="pr-section pr-section-pass pr-section-collapsible">
+          <summary class="pr-section-header pr-section-toggle">
             <span class="severity-dot severity-pass"></span>
             {i.output.passedLabel} (3)
-          </div>
+            <svg class="toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
           <div class="pr-check-list-compact">
             <span class="pr-pass-item">gitleaks</span>
             <span class="pr-pass-item">eslint-check</span>
             <span class="pr-pass-item">dockerfile-check</span>
           </div>
-        </div>
+        </details>
 
         <div class="pr-section pr-section-info">
           <div class="pr-section-header">
@@ -282,6 +283,35 @@ const i = t(locale);
     background: var(--pass-bg);
     color: var(--pass);
     font-weight: 500;
+  }
+
+  .pr-section-collapsible {
+    list-style: none;
+  }
+
+  .pr-section-toggle {
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+  }
+
+  .pr-section-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .pr-section-toggle::marker {
+    content: '';
+  }
+
+  .toggle-chevron {
+    margin-left: auto;
+    transition: transform 0.2s ease;
+    color: var(--text-faint);
+    flex-shrink: 0;
+  }
+
+  .pr-section-collapsible[open] .toggle-chevron {
+    transform: rotate(180deg);
   }
 
   .pr-section-crit { border-color: var(--critical-bg); }
