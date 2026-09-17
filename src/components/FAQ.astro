@@ -1,0 +1,162 @@
+---
+import type { Locale } from '../i18n/translations';
+
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const isKo = locale === 'ko';
+
+const faqs = [
+  {
+    q: isKo ? 'Release Guard는 무료인가요?' : 'Is Release Guard free?',
+    a: isKo
+      ? '네, 완전히 무료이며 오픈소스(MIT 라이선스)입니다. GitHub Actions의 무료 티어에서 동작하며, 외부 서비스나 API 키가 필요 없습니다.'
+      : 'Yes, completely free and open source (MIT License). It runs on GitHub Actions\' free tier and requires no external services or API keys.',
+  },
+  {
+    q: isKo ? '기존 CI/CD 파이프라인과 충돌하나요?' : 'Does it conflict with existing CI/CD pipelines?',
+    a: isKo
+      ? '아닙니다. Release Guard는 독립적인 워크플로 파일로 동작하므로 기존 CI/CD 설정에 영향을 주지 않습니다. 다른 GitHub Actions 워크플로와 병렬로 실행됩니다.'
+      : 'No. Release Guard runs as an independent workflow file, so it does not affect your existing CI/CD setup. It runs in parallel with your other GitHub Actions workflows.',
+  },
+  {
+    q: isKo ? '어떤 프로그래밍 언어를 지원하나요?' : 'Which programming languages are supported?',
+    a: isKo
+      ? 'JavaScript, TypeScript, Python, Go, Java, Ruby, PHP, Rust, Shell 등 주요 언어를 지원합니다. 템플릿 엔진(EJS, ERB, Handlebars, Pug, Vue, Svelte)도 지원합니다. 체크 대부분은 언어에 독립적이며, diff 패턴 매칭 기반으로 동작합니다.'
+      : 'JavaScript, TypeScript, Python, Go, Java, Ruby, PHP, Rust, Shell, and more. Template engines (EJS, ERB, Handlebars, Pug, Vue, Svelte) are also supported. Most checks are language-agnostic and work via diff pattern matching.',
+  },
+  {
+    q: isKo ? '특정 체크만 끄거나 켤 수 있나요?' : 'Can I enable or disable specific checks?',
+    a: isKo
+      ? '네, .release-guard.yml 설정 파일에서 체크별로 enabled: true/false를 지정할 수 있습니다. 임계값(예: PR 크기 제한)도 체크별로 조정할 수 있습니다.'
+      : 'Yes. In the .release-guard.yml config file, you can set enabled: true/false per check. Thresholds (e.g., PR size limits) are also configurable per check.',
+  },
+  {
+    q: isKo ? '프라이빗 리포지토리에서도 사용할 수 있나요?' : 'Can I use it with private repositories?',
+    a: isKo
+      ? '네. GitHub Actions가 활성화된 모든 리포지토리(퍼블릭, 프라이빗 모두)에서 동작합니다. 프라이빗 리포의 경우 GitHub Actions 무료 분수(2,000분/월)가 적용됩니다.'
+      : 'Yes. It works on any repository (public or private) with GitHub Actions enabled. For private repos, GitHub Actions free tier (2,000 minutes/month) applies.',
+  },
+  {
+    q: isKo ? 'false positive가 발생하면 어떻게 하나요?' : 'What if I get false positives?',
+    a: isKo
+      ? '체크 설정에서 임계값을 조정하거나, 해당 체크를 비활성화할 수 있습니다. 또한 특정 파일이나 패턴을 무시 목록에 추가하는 것도 가능합니다. Issue로 보고해 주시면 개선에 반영합니다.'
+      : 'You can adjust thresholds in the check config or disable that check. You can also add specific files or patterns to an ignore list. Feel free to report false positives as GitHub issues -- we actively improve detection accuracy.',
+  },
+];
+---
+
+<section class="faq fade-in-section">
+  <div class="faq-inner">
+    <h2 class="section-title">{isKo ? '자주 묻는 질문' : 'Frequently asked questions'}</h2>
+    <p class="section-desc">{isKo ? 'Release Guard에 대해 궁금한 점을 확인하세요.' : 'Common questions about Release Guard.'}</p>
+    <div class="faq-list">
+      {faqs.map((faq) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>{faq.q}</span>
+            <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>{faq.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding: 80px 24px;
+    background: var(--surface);
+  }
+
+  .faq-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'DM Sans', var(--font-sans);
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .faq-item {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::marker {
+    content: '';
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    color: var(--text-faint);
+    transition: transform 0.2s ease;
+  }
+
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-item[open] .faq-question {
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .faq-answer {
+    padding: 14px 20px 18px;
+  }
+
+  .faq-answer p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .faq { padding: 48px 20px; }
+    .faq-question { padding: 14px 16px; font-size: 0.85rem; }
+    .faq-answer { padding: 12px 16px 16px; }
+  }
+</style>
