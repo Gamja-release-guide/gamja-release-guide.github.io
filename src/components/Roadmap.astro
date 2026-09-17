@@ -139,6 +139,18 @@ const v2Features = [
     gap: 8px;
   }
 
+  .roadmap-list-next li {
+    padding: 8px 10px;
+    border-left: 2px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    background: transparent;
+    transition: background 0.15s ease;
+  }
+
+  .roadmap-list-next li:hover {
+    background: var(--accent-light);
+  }
+
   .rm-check {
     color: var(--pass);
     flex-shrink: 0;
