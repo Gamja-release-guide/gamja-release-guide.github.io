@@ -266,7 +266,16 @@ const configYml = `checks:
     font-family: var(--font-mono);
     color: var(--text-muted);
     border: 1px solid var(--border-light);
+    transition: background 0.15s ease, border-color 0.15s ease;
   }
+
+  .result-item:hover {
+    background: var(--surface);
+  }
+
+  .result-pass:hover { border-color: var(--pass); }
+  .result-warn:hover { border-color: var(--warn); }
+  .result-crit:hover { border-color: var(--critical); }
 
   .result-badge {
     font-size: 0.7rem;
