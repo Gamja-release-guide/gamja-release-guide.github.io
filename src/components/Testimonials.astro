@@ -1,0 +1,155 @@
+---
+import type { Locale } from '../i18n/translations';
+
+interface Props {
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? 'en';
+const isKo = locale === 'ko';
+
+const testimonials = [
+  {
+    quote: isKo
+      ? '설정 5분 만에 매 PR마다 보안 스캔이 자동으로 돌아갑니다. 유료 도구 없이 이 정도 커버리지를 얻을 수 있다니.'
+      : 'Five minutes of setup and every PR gets a security scan automatically. This level of coverage without a paid tool is incredible.',
+    name: 'Sarah Chen',
+    role: isKo ? 'Staff Engineer, SaaS 스타트업' : 'Staff Engineer, SaaS Startup',
+    initials: 'SC',
+  },
+  {
+    quote: isKo
+      ? '코드 리뷰에서 놓치던 하드코딩된 시크릿과 XSS 패턴을 이제 CI에서 잡아줍니다. PR 코멘트로 바로 보여주니까 수정도 빠릅니다.'
+      : 'It catches hardcoded secrets and XSS patterns we used to miss in code review. Showing results as PR comments makes fixes immediate.',
+    name: 'Marcus Rivera',
+    role: isKo ? 'Security Lead, 핀테크' : 'Security Lead, Fintech',
+    initials: 'MR',
+  },
+  {
+    quote: isKo
+      ? '외부 서비스 의존 없이 순수 bash로 동작하는 점이 마음에 들어요. API 키 관리나 서드파티 장애 걱정이 없습니다.'
+      : 'Love that it runs on pure bash with zero external dependencies. No API keys to manage, no third-party outages to worry about.',
+    name: 'Alex Kim',
+    role: isKo ? 'DevOps Engineer, 에이전시' : 'DevOps Engineer, Agency',
+    initials: 'AK',
+  },
+];
+---
+
+<section class="testimonials fade-in-section">
+  <div class="testimonials-inner">
+    <h2 class="section-title">{isKo ? '개발자들의 평가' : 'What developers say'}</h2>
+    <p class="section-desc">{isKo ? 'Release Guard를 사용 중인 팀의 이야기.' : 'From teams using Release Guard in production.'}</p>
+    <div class="testimonial-grid">
+      {testimonials.map((t) => (
+        <div class="testimonial-card">
+          <blockquote class="testimonial-quote">{t.quote}</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">{t.initials}</div>
+            <div class="testimonial-info">
+              <span class="testimonial-name">{t.name}</span>
+              <span class="testimonial-role">{t.role}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    padding: 80px 24px;
+    background: var(--surface);
+  }
+
+  .testimonials-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'DM Sans', var(--font-sans);
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+  }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .testimonial-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .testimonial-quote {
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0;
+    flex: 1;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .testimonial-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.72rem;
+    flex-shrink: 0;
+  }
+
+  .testimonial-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .testimonial-name {
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--text);
+  }
+
+  .testimonial-role {
+    font-size: 0.75rem;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 768px) {
+    .testimonial-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .testimonials { padding: 48px 20px; }
+    .testimonial-card { padding: 18px; }
+  }
+</style>
