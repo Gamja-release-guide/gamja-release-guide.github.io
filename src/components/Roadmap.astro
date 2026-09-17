@@ -32,9 +32,12 @@ const v2Features = [
           <span class="roadmap-col-dot dot-done"></span>
           {i.roadmap.v1Header}
         </div>
-        <ul class="roadmap-list">
+        <ul class="roadmap-list roadmap-list-done">
           {i.roadmap.v1Items.map((item) => (
-            <li>{item}</li>
+            <li>
+              <svg class="rm-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              {item}
+            </li>
           ))}
         </ul>
       </div>
@@ -43,11 +46,14 @@ const v2Features = [
           <span class="roadmap-col-dot dot-next"></span>
           {i.roadmap.v2Header}
         </div>
-        <ul class="roadmap-list">
+        <ul class="roadmap-list roadmap-list-next">
           {v2Features.map((f) => (
             <li>
-              <span class="v2-name">{f.name}</span>
-              <span class="v2-desc">{f.desc}</span>
+              <span class="rm-dot-next" aria-hidden="true"></span>
+              <div class="v2-content">
+                <span class="v2-name">{f.name}</span>
+                <span class="v2-desc">{f.desc}</span>
+              </div>
             </li>
           ))}
         </ul>
@@ -128,25 +134,42 @@ const v2Features = [
     font-size: 0.85rem;
     color: var(--text-muted);
     line-height: 1.5;
-    padding-left: 14px;
-    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
   }
 
-  .roadmap-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 8px;
-    width: 5px;
-    height: 5px;
+  .rm-check {
+    color: var(--pass);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .rm-dot-next {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: var(--border);
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 6px;
+    animation: pulse-dot 2s ease-in-out infinite;
   }
 
-  .col-done .roadmap-list li::before { background: var(--pass); }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rm-dot-next { animation: none; }
+  }
+
+  .v2-content {
+    display: flex;
+    flex-direction: column;
+  }
 
   .v2-name {
-    display: block;
     font-weight: 600;
     color: var(--text);
     font-size: 0.85rem;
