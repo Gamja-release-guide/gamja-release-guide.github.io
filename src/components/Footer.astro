@@ -34,6 +34,12 @@ const year = new Date().getFullYear();
           <a href="#features">{i.nav.features}</a>
           <a href="#playground">{i.nav.playground}</a>
         </div>
+        <div class="footer-col">
+          <h4>{locale === 'ko' ? '커뮤니티' : 'Community'}</h4>
+          <a href="https://github.com/Gamja-release-guide/release-guard/issues" target="_blank" rel="noopener">{locale === 'ko' ? '버그 리포트' : 'Report a bug'}</a>
+          <a href="https://github.com/Gamja-release-guide/release-guard/discussions" target="_blank" rel="noopener">{locale === 'ko' ? '토론' : 'Discussions'}</a>
+          <a href="#roadmap">{locale === 'ko' ? '로드맵' : 'Roadmap'}</a>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">
