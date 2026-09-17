@@ -8,6 +8,16 @@ interface Props {
 
 const locale = Astro.props.locale ?? 'en';
 const i = t(locale);
+const isKo = locale === 'ko';
+const configYml = `checks:
+  secret-scan:
+    enabled: true
+  pr-size:
+    enabled: true
+    warn_lines: 300
+    max_lines: 500
+  xss-check:
+    enabled: false`;
 ---
 
 <section id="install" class="install fade-in-section">
@@ -24,6 +34,10 @@ const i = t(locale);
           <div class="code-block">
             <div class="code-header">
               <span>Terminal</span>
+              <button class="copy-btn" data-copy="curl -fsSL https://raw.githubusercontent.com/Gamja-release-guide/release-guard/main/install.sh | bash" aria-label="{isKo ? '복사' : 'Copy'}">
+                <svg class="icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                <svg class="icon-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
             </div>
             <pre><code>curl -fsSL https://raw.githubusercontent.com/Gamja-release-guide/release-guard/main/install.sh | bash</code></pre>
           </div>
@@ -38,6 +52,10 @@ const i = t(locale);
           <div class="code-block">
             <div class="code-header">
               <span>.release-guard.yml</span>
+              <button class="copy-btn" data-copy={configYml} aria-label={isKo ? '복사' : 'Copy'}>
+                <svg class="icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                <svg class="icon-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
             </div>
             <pre><code><span class="c-key">checks</span>:
   <span class="c-key">secret-scan</span>:
@@ -163,12 +181,38 @@ const i = t(locale);
   }
 
   .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 8px 14px;
     font-size: 0.75rem;
     font-family: var(--font-mono);
     color: var(--text-faint);
     background: var(--surface);
     border-bottom: 1px solid var(--border-light);
+  }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: var(--text-faint);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .copy-btn:hover {
+    color: var(--text);
+    background: var(--border-light);
+  }
+
+  .copy-btn.copied {
+    color: var(--pass);
   }
 
   .code-block pre {
@@ -230,3 +274,25 @@ const i = t(locale);
     .step-num { width: 30px; height: 30px; font-size: 0.78rem; }
   }
 </style>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.getAttribute('data-copy');
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        const iconCopy = btn.querySelector('.icon-copy');
+        const iconCheck = btn.querySelector('.icon-check');
+        if (iconCopy) iconCopy.setAttribute('hidden', '');
+        if (iconCheck) iconCheck.removeAttribute('hidden');
+        btn.classList.add('copied');
+        setTimeout(() => {
+          if (iconCopy) iconCopy.removeAttribute('hidden');
+          if (iconCheck) iconCheck.setAttribute('hidden', '');
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch {}
+    });
+  });
+</script>
